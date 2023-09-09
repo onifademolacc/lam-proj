@@ -3,8 +3,6 @@ service: server
 #app: your-app-name
 #org: your-org-name
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
 frameworkVersion: "3"
 
 provider:
@@ -18,12 +16,38 @@ plugins:
   - serverless-offline
 
 functions:
-  deezerapi:
-    handler: src/api/api.handler
+  search:
+    handler: src/api/search.handler
     events:
       - http:
-          ANY /{proxy+}
-          #path: /{proxy+}
+          path: /search
+          method: GET
+          cors:
+            origin: "*"
+  artist:
+    handler: src/api/artist.handler
+    events:
+      - http:
+          path: /artist/{id}
+          method: GET
+          cors:
+            origin: "*"
+  artist-tracks:
+    handler: src/api/artist-top-tracks.handler
+    events:
+      - http:
+          path: /artist/{id}/top
+          method: GET
+          cors:
+            origin: "*"
+  album:
+    handler: src/api/album.handler
+    events:
+      - http:
+          path: /album/{id}
+          method: GET
+          cors:
+            origin: "*"
 # you can add statements to the Lambda function's IAM Role here
 #  iam:
 #    role:

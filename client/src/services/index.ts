@@ -1,26 +1,33 @@
 import axios from "axios";
-import { HttpMethod } from "types";
+import { HttpMethod } from "../types/index.d";
 
-const baseUri = process.env.API_URL;
+const baseUri = process.env.API_URL || "https://api.deezer.com";
 
 const TOKEN = "";
 
-const apiCall = async (method: HttpMethod, uri: string, data = null) => {
+const apiCall = async (
+  method: HttpMethod,
+  uri: string,
+  data = null,
+  params = null
+) => {
   return axios({
     method,
-    url: `${baseUri}/${uri}`,
+    url: `${baseUri}${uri}`,
     data,
+    params,
     headers: {
       "Content-Type": "application/json",
       "x-auth-token": TOKEN,
+      "Access-Control-Allow-Origin": "*",
     },
   })
     .then((res) => res)
     .catch((err) => err);
 };
 
-export const HttpGet = async (uri: string) =>
-  apiCall(HttpMethod.GET, uri, null);
+export const HttpGet = async (uri: string, params: any) =>
+  apiCall(HttpMethod.GET, uri, null, params);
 
 export const HttpPost = async (uri: string, data: any) =>
   apiCall(HttpMethod.POST, uri, data);

@@ -22,10 +22,7 @@ const Main = () => {
       <main>
         <div className="flex items-center justify-center w-full shadow-md bg-brand-white">
           <div className="flex flex-col w-2/5 justify-center p-8">
-            <SearchInput
-              onReset={() => console.log("reset")}
-              onSearch={() => console.log("reset")}
-            />
+            <SearchInput />
           </div>
         </div>
         <div className="container-w-full mx-auto sm:px-6 lg:px-8 bg-slate-100">

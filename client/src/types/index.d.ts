@@ -4,6 +4,9 @@ export interface Artist {
   link: string;
   picture: string;
   picture_medium: string;
+  picture_big: string;
+  picture_xl: string;
+  nb_fan: string;
   tracklist: string;
 }
 
@@ -34,7 +37,26 @@ export enum HttpMethod {
   PATCH = "patch",
 }
 
-//artist top 5 tracks
+export interface TrackSearchResult {
+  data: Track[];
+  total: number;
+  next: string;
+}
+
+export interface ErrorResult {
+  error: any;
+}
+
+export type SearchResult = TrackSearchResult | ErrorResult;
+
+// GET Tracks
+// https://api.deezer.com/search/track?q=eminem
+
+// GET Artist top 5 tracks
 // http://api.deezer.com/artist/13/top?limit=5
-// https://api.deezer.com/artist/27
-//https://api.deezer.com/search/album?q=eminem
+
+// GET Artist albums
+// https://api.deezer.com/search/album?q=eminem
+
+// GET an album
+// https://api.deezer.com/album/302127

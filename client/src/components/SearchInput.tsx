@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
+import useSearch from "hooks/useSearch";
+import useDebounce from "hooks/useDebounce";
 
 interface Props {
-  onSearch: (searchTerm: string) => void;
-  onReset: () => void;
   placeholder?: string;
 }
 
-const SearchInput: React.FC<Props> = ({ onSearch, onReset, placeholder }) => {
-  const [searchTerm, setSearchTerm] = useState<string>("");
+const SearchInput: React.FC<Props> = ({ placeholder }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { debounce } = useDebounce();
+  const { fetchTrack, reset } = useSearch();
 
   const resetSearch = () => {
-    setSearchTerm("");
-    onReset();
-  };
-
-  const onSubmit = (e: any) => {
-    e.preventDefault();
-    if (searchTerm) onSearch(searchTerm);
-    else resetSearch();
+    if (inputRef && inputRef.current && inputRef.current.value) {
+      inputRef.current.value = "";
+      reset();
+    }
   };
 
   return (
@@ -31,8 +29,8 @@ const SearchInput: React.FC<Props> = ({ onSearch, onReset, placeholder }) => {
         </label>
         <div className="relative mt-2 flex items-center">
           <input
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            ref={inputRef}
+            onChange={(e) => debounce(fetchTrack(e.target.value), 500)}
             type="text"
             id="default-search"
             placeholder={placeholder ? placeholder : "Search..."}

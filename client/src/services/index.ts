@@ -1,7 +1,9 @@
 import axios from "axios";
 import { HttpMethod } from "../types/index.d";
 
-const baseUri = process.env.API_URL || "https://api.deezer.com";
+const baseUri =
+  process.env.API_URL ||
+  "https://544i4jhypb.execute-api.us-east-1.amazonaws.com/prod";
 
 const TOKEN = "";
 
@@ -18,7 +20,6 @@ const apiCall = async (
     params,
     headers: {
       "Content-Type": "application/json",
-      "x-auth-token": TOKEN,
       "Access-Control-Allow-Origin": "*",
     },
   })

@@ -19,11 +19,7 @@ functions:
   search:
     handler: src/api/search.handler
     events:
-      - http:
-          path: /search
-          method: GET
-          cors:
-            origin: "*"
+      - http: ANY /{proxy+}
   artist:
     handler: src/api/artist.handler
     events:

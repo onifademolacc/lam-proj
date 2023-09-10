@@ -19,7 +19,7 @@ const useSearch = () => {
     const result: any = await HttpGet(`${API_ROUTES.SEARCH_ALBUM}`, {
       q: track,
     });
-    console.log("track search result: ", result);
+
     if (
       (result && result.error) ||
       (result.name && result.name === "AxiosError")
